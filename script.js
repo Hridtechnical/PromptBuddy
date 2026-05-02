@@ -1,3 +1,6 @@
+function generateAI() {
+    alert("AI clicked"); // add this
+
 function displayPrompts(prompts) {
     const container = document.getElementById('promptContainer');
     container.innerHTML = '';
