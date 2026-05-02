@@ -66,11 +66,12 @@ async function generateAI() {
 
         const data = await res.json();
 
-        if (!data.choices) {
-            alert("AI response invalid");
-            return;
-        }
+    console.log("FULL AI RESPONSE:", data);
 
+if (!data.choices) {
+    alert("AI response invalid — check console");
+    return;
+}
         const text = data.choices[0].message.content;
 
         const aiPrompts = text
