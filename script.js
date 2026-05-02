@@ -28,8 +28,9 @@ function filterCategory(category) {
 
 document.getElementById('searchBar').addEventListener('input', function() {
     const searchTerm = this.value.toLowerCase();
-    const filtered = prompts.filter(p => p.text.toLowerCase().includes(searchTerm));
-    displayPrompts(filtered);
+const filtered = prompts.filter(p => {
+    const combined = (p.text + " " + p.category).toLowerCase();
+    return combined.includes(searchTerm);
 });
 
 displayPrompts(prompts);
