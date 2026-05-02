@@ -41,3 +41,53 @@ document.getElementById('searchBar').addEventListener('input', function() {
 });
 
 displayPrompts(prompts);
+
+async function generateAI() {
+    const input = document.getElementById("searchBar").value;
+
+    if (!input) {
+        alert("Type something first!");
+        return;
+    }
+
+    try {
+        const res = await fetch("/api/generate", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ input })
+        });
+
+        if (!res.ok) {
+            alert("AI not working (server issue)");
+            return;
+        }
+
+        const data = await res.json();
+
+        if (!data.choices) {
+            alert("AI response invalid");
+            return;
+        }
+
+        const text = data.choices[0].message.content;
+
+        const aiPrompts = text
+            .split("\n")
+            .filter(t => t.trim())
+            .map(t => ({
+                category: "AI",
+                text: t
+            }));
+
+        displayPrompts(aiPrompts);
+
+    } catch (err) {
+        console.error(err);
+        alert("AI failed, showing normal prompts");
+
+        // fallback (IMPORTANT)
+        displayPrompts(prompts);
+    }
+}
