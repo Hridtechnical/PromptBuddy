@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PromptBuddy.in - Your AI Prompt Partner</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>PromptBuddy</h1>
+        <input type="text" id="searchBar" placeholder="Search prompts...">
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+        </nav>
+        <button onclick="window.open('#', '_blank')">Suggest a Prompt</button>
+    </header>
+
+    <main>
+        <h2>Categories</h2>
+        <div class="categories">
+            <button onclick="filterCategory('All')">All</button>
+            <button onclick="filterCategory('Education')">Education 📚</button>
+            <button onclick="filterCategory('Business')">Business 💼</button>
+            <button onclick="filterCategory('Coding')">Coding 💻</button>
+            <button onclick="filterCategory('Fun & Creativity')">Fun 🎨</button>
+        </div>
+
+        <div id="promptContainer" class="prompt-container"></div>
+    </main>
+
+    <footer>
+        <p>© 2025 PromptBuddy.in | All Rights Reserved</p>
+    </footer>
+
+    <script src="prompts.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
