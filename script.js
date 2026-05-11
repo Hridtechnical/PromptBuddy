@@ -59,19 +59,42 @@ async function generateAI() {
             body: JSON.stringify({ input })
         });
 
-        if (!res.ok) {
-            alert("AI not working (server issue)");
+        const data = await res.json();
+
+        // If OpenAI quota issue
+        if (data.error) {
+            console.log(data);
+
+            // smart fallback prompts
+            const fallbackPrompts = [
+                {
+                    category: "AI",
+                    text: `Explain ${input} in simple words`
+                },
+                {
+                    category: "AI",
+                    text: `Give me 5 examples of ${input}`
+                },
+                {
+                    category: "AI",
+                    text: `Create a step-by-step guide for ${input}`
+                },
+                {
+                    category: "AI",
+                    text: `Generate advanced prompts about ${input}`
+                },
+                {
+                    category: "AI",
+                    text: `Teach me ${input} like I am a beginner`
+                }
+            ];
+
+            displayPrompts(fallbackPrompts);
+
+            alert("AI quota finished — using smart mode");
             return;
         }
 
-        const data = await res.json();
-
-    console.log("FULL AI RESPONSE:", data);
-
-if (!data.choices) {
-    alert("AI response invalid — check console");
-    return;
-}
         const text = data.choices[0].message.content;
 
         const aiPrompts = text
@@ -86,9 +109,6 @@ if (!data.choices) {
 
     } catch (err) {
         console.error(err);
-        alert("AI failed, showing normal prompts");
-
-        // fallback (IMPORTANT)
-        displayPrompts(prompts);
+        alert("AI failed");
     }
 }
