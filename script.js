@@ -66,49 +66,131 @@ async function generateAI() {
             console.log(data);
 
             // smart fallback prompts
-            const fallbackPrompts = [
-                {
-                    category: "AI",
-                    text: `Explain ${input} in simple words`
-                },
-                {
-                    category: "AI",
-                    text: `Give me 5 examples of ${input}`
-                },
-                {
-                    category: "AI",
-                    text: `Create a step-by-step guide for ${input}`
-                },
-                {
-                    category: "AI",
-                    text: `Generate advanced prompts about ${input}`
-                },
-                {
-                    category: "AI",
-                    text: `Teach me ${input} like I am a beginner`
-                }
-            ];
+            let fallbackPrompts = [];
 
-            displayPrompts(fallbackPrompts);
+const topic = input.toLowerCase();
 
-            alert("AI quota finished — using smart mode");
-            return;
+if (topic.includes("math")) {
+    fallbackPrompts = [
+        {
+            category: "Education",
+            text: "Create a 7-day study plan for my math exam"
+        },
+        {
+            category: "Education",
+            text: "Explain difficult math concepts using simple examples"
+        },
+        {
+            category: "Education",
+            text: "Generate 10 important math questions for practice"
+        },
+        {
+            category: "Education",
+            text: "Teach me algebra step-by-step"
+        },
+        {
+            category: "Education",
+            text: "Give shortcuts for solving math problems faster"
         }
+    ];
+}
 
-        const text = data.choices[0].message.content;
+else if (topic.includes("study") || topic.includes("exam")) {
+    fallbackPrompts = [
+        {
+            category: "Education",
+            text: "Create a perfect study timetable for exams"
+        },
+        {
+            category: "Education",
+            text: "Help me revise quickly before exams"
+        },
+        {
+            category: "Education",
+            text: "Teach this chapter like a fun teacher"
+        },
+        {
+            category: "Education",
+            text: "Generate important exam questions"
+        },
+        {
+            category: "Education",
+            text: "Help me remember concepts faster"
+        }
+    ];
+}
 
-        const aiPrompts = text
-            .split("\n")
-            .filter(t => t.trim())
-            .map(t => ({
-                category: "AI",
-                text: t
-            }));
+else if (topic.includes("coding") || topic.includes("python")) {
+    fallbackPrompts = [
+        {
+            category: "Coding",
+            text: "Teach me Python from beginner to advanced"
+        },
+        {
+            category: "Coding",
+            text: "Give me beginner coding projects"
+        },
+        {
+            category: "Coding",
+            text: "Explain coding mistakes and fixes"
+        },
+        {
+            category: "Coding",
+            text: "Generate coding interview questions"
+        },
+        {
+            category: "Coding",
+            text: "Build a beginner-friendly coding roadmap"
+        }
+    ];
+}
 
-        displayPrompts(aiPrompts);
+else if (topic.includes("business") || topic.includes("startup")) {
+    fallbackPrompts = [
+        {
+            category: "Business",
+            text: "Generate startup ideas for teenagers"
+        },
+        {
+            category: "Business",
+            text: "Create a business plan for my idea"
+        },
+        {
+            category: "Business",
+            text: "How can I earn money online?"
+        },
+        {
+            category: "Business",
+            text: "Suggest profitable AI business ideas"
+        },
+        {
+            category: "Business",
+            text: "Help me market my startup"
+        }
+    ];
+}
 
-    } catch (err) {
-        console.error(err);
-        alert("AI failed");
-    }
+else {
+    fallbackPrompts = [
+        {
+            category: "AI",
+            text: `Teach me ${input} like a beginner`
+        },
+        {
+            category: "AI",
+            text: `Create a roadmap to learn ${input}`
+        },
+        {
+            category: "AI",
+            text: `Explain ${input} in simple words`
+        },
+        {
+            category: "AI",
+            text: `Give real-life examples of ${input}`
+        },
+        {
+            category: "AI",
+            text: `Generate advanced prompts about ${input}`
+        }
+    ];
 }
